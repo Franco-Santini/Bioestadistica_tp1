@@ -1,0 +1,266 @@
+---
+title: "TP_1"
+format: html
+---
+
+# Reglas
+
+a) Numerico, entre las opciones
+b) Primera parte fecha, mayor a 18 años hasta el dia de la entrevista y formato dma. Segunda parte letras, mayusculas
+c) formato fecha dma
+d) numerico, entre las opciones
+1) 2) y 3) numerico, 1 o 2
+sub) character y 1,2 y 3 igual a 2; country_code igual a b). NA en otro caso
+
+```{r}
+# Librerias
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lubridate)
+library(stringr)
+library(writexl)
+```
+
+
+
+```{r}
+# Carga de datos
+
+datos <- read_xlsx('Datos/adm.xlsx')
+
+glimpse(datos)
+
+# Extraemos la fecha de nacimiento y las inciales de la persona
+
+ids <- str_split(datos$patientid, pattern = '-')
+
+datos$bdate <-  sapply(ids, function(x) x[1])
+datos$initials <-  sapply(ids, function(x) x[2])
+
+# Pasamos a formato fecha las variables correspondientes y calculamos la edad antes de la entrevista
+
+datos <- datos |> mutate(interview = as.Date(interview, format = '%d/%m/%Y'),
+                bdate = as.Date(bdate, format = '%d/%m/%Y'),
+                age = round(as.numeric(interview - bdate)/365,2),
+                ind_id = 1:nrow(datos))
+
+```
+
+
+```{r}
+
+#https://centrofertilidad.com/blog/hasta-que-edad-una-mujer-es-fertil/#elementor-toc__heading-anchor-0
+
+# Creacion de reglas --------------------
+
+## Condiciones de las reglas ----------------
+
+condiciones = c(
+  'is.na(countrycode)',
+  '!is.numeric(countrycode)',
+  '!(countrycode %in% c(4,11,14,23,31,48,54,65,72,97))',
+  'is.na(patientid)',
+  'is.na(bdate)',
+  '!is.Date(bdate)',
+  'is.na(initials)',
+  '!is.character(initials)',
+  'str_length(initials) != 2',
+  'initials != str_to_upper(initials)',
+  'is.na(interview)',
+  '!is.Date(interview)',
+  'age < 18 | age > 51',
+  'is.na(ethnicgroup)',
+  '!is.numeric(ethnicgroup)',
+  '!(ethnicgroup %in% 1:4)',
+  'is.na(scr)',
+  '!is.numeric(scr)',
+  '!(scr %in% 1:2)',
+  'is.na(usscr)',
+  '!is.numeric(usscr)',
+  '!(usscr %in% 1:2)',
+  'is.na(consent)',
+  '!is.numeric(consent)',
+  '!(consent %in% 1:2)',
+  '(consent == 1 | scr == 1 | usscr == 1) & !(is.na(subjectnumber))',
+  '(consent == 2 & scr == 2 & usscr == 2) & is.na(subjectnumber)',
+  'ifelse(is.na(subjectnumber), FALSE, !(is.character(subjectnumber)))',
+  'ifelse(is.na(subjectnumber), FALSE, str_length(subjectnumber) != 9)',
+  'ifelse(is.na(subjectnumber), FALSE, as.numeric(str_sub(subjectnumber, end = 3)) != countrycode)'
+)
+
+## Descripcion de las reglas --------------------
+
+desc <- c(
+  '(countrycode) es faltante',
+  '(countrycode) no es numérica',
+  '(countrycode) no está entre las opciones',
+  '(patientid) es faltante',
+  '(bdate) es faltante',
+  '(bdate) no es fecha',
+  '(initials) es faltante',
+  '(initials) no es caracter',
+  '(initials) no es de largo 2',
+  '(initials) no está en mayusculas',
+  '(interview) es faltante',
+  '(interview) no es fecha',
+  '(age) fuera de rango (18 <= age <= 51)',
+  '(ethnicgroup) es faltante',
+  '(ethnicgroup) no es numérica',
+  '(ethnicgroup) no está entre las opciones',
+  '(scr) es faltante',
+  '(scr) no es numérica',
+  '(scr) no está entre las opciones',
+  '(usscr) es faltante',
+  '(usscr) no es numérica',
+  '(usscr) no está entre las opciones',
+  '(consent) es faltante',
+  '(consent) no es numérica',
+  '(consent) no está entre las opciones',
+  'Si (scr), (usscr) o (consent) igual a 1, (subjectnumber) debe ser faltante',
+  'Si (scr), (usscr) y (consent) igual a 2, (subjectnumber) no debe ser faltante',
+  'Si (subjectnumber) no es faltante, (subjectnumber) debe ser caracter',
+  'Si (subjectnumber) no es faltante, el largo de (subjectnumber) debe ser igual a 9',
+  'Si (subjectnumber) no es faltante, los 3 primeros valores de (subjectnumber) deben coincidir con (countrycode)'
+)
+
+campo <- c(
+  'Country Code',
+  'Country Code',
+  'Country Code',
+  'Patients ID',
+  'Patients ID',
+  'Patients ID',
+  'Patients ID',
+  'Patients ID',
+  'Patients ID',
+  'Patients ID',
+  'Interview',
+  'Interview',
+  'Patients ID',
+  'Ethnic Group',
+  'Ethnic Group',
+  'Ethnic Group',
+  'SSR',
+  'SSR',
+  'SSR',
+  'USSSR',
+  'USSSR',
+  'USSSR',
+  'Consent',
+  'Consent',
+  'Consent',
+  'Subject Number',
+  'Subject Number',
+  'Subject Number',
+  'Subject Number',
+  'Subject Number'
+)
+
+id = paste0('r.', 1:length(condiciones))
+
+## Dataframe reglas ------------------------
+
+reglas <- data.frame(
+  id = id,
+  descripcion = desc,
+  condicion = condiciones,
+  campo = campo
+)
+
+## Guardamos las reglas como excel
+
+# write_xlsx(x = reglas, path = '')
+```
+
+
+
+```{r}
+# Evaluacion de reglas ------------------
+
+
+# Funcion validador()
+# argumentos:
+# - datos: conjunto de validacion
+# - id : nombre de la columna en (datos) con el identificador
+# - cond : nombre de la columna en (datos) con la condicion
+# salida: vector nombrado
+
+validador <-  function(datos, id, cond) {
+  
+  reglas = datos[[cond]]
+  names(reglas) = datos[[id]]
+  reglas
+  
+}
+
+
+# Funcion validar()
+# argumentos:
+# - datos : conjunto de datos a validar
+# - id : nombre de la columna en (datos) con el identificador
+# - validador: salida de validador()
+# salida: tibble con el resultado de la validación
+
+validar <- function(datos, id, validador) {
+  sapply(
+    validador,
+    function(x) eval(parse(text = x), datos)
+  ) |>
+  as.data.frame() |>
+  mutate(registro = datos[[id]], .before = 0)
+}
+
+```
+
+
+```{r}
+
+validacion <- validar(datos = datos, id = 'ind_id', validador = validador(datos = reglas, id = 'id', 'condicion'))
+
+validacion_largo <- validacion |>
+  pivot_longer(-registro, names_to = 'Regla', values_to = 'Error')
+```
+
+```{r}
+
+# Individuos limpios
+
+limpios <- validacion_largo |> 
+  group_by(registro) |> 
+  summarise('Errores' = sum(ifelse(is.na(Error), 1, Error))) |> 
+  ungroup() |> 
+  filter(Errores == 0) |> 
+  count() |> 
+  as.numeric()
+
+# Participantes con inconsistencias
+
+no_limpios <- nrow(datos)-limpios
+
+# Inconsistencias mas frecuentes
+
+inconsistencias <- validacion_largo |> 
+  group_by(Regla) |> 
+  summarise(Frecuencia = sum(ifelse(is.na(Error), 1, Error))) |> 
+  ungroup() |> 
+  arrange(desc(Frecuencia)) |> 
+  head(5) |> 
+  left_join(reglas, by = c('Regla' = 'id')) |> 
+  select(Regla, descripcion, Frecuencia)
+
+
+# Campos con mas errores
+
+campos <- validacion_largo |> 
+  group_by(Regla) |> 
+  summarise(Frecuencia = sum(ifelse(is.na(Error), 1, Error))) |> 
+  ungroup() |> 
+  left_join(reglas, by = c('Regla' = 'id')) |> 
+  group_by(campo) |> 
+  summarise(Frecuencia = sum(Frecuencia))
+
+```
+
+
