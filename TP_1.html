@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>tp_1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="TP_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="TP_1_files/libs/quarto-html/quarto.js"></script>
+<script src="TP_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="TP_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="TP_1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="TP_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="TP_1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="TP_1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="TP_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="TP_1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="TP_1_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="TP_1_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+<link href="TP_1_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="TP_1_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="TP_1_files/libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="TP_1_files/libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="TP_1_files/libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="TP_1_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="TP_1_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="TP_1_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="TP_1_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción">Introducción</a></li>
+  <li><a href="#reglas-propuestas" id="toc-reglas-propuestas" class="nav-link" data-scroll-target="#reglas-propuestas">Reglas propuestas</a></li>
+  <li><a href="#recomendaciones-finales" id="toc-recomendaciones-finales" class="nav-link" data-scroll-target="#recomendaciones-finales">Recomendaciones finales</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+
+
+
+<div class="cell">
+<style type="text/css">
+.justify {
+  text-align: justify !important
+}
+
+.p1 {
+  font-family: "Tahoma", Tahoma, sans-serif;
+}
+</style>
+</div>
+<div class="center">
+<p style="font-weight:600; font-size:36px; text-align: center" class="p1">
+MANEJO DE DATOS
+</p>
+<p style="font-weight:600; font-size:26px; text-align: center" class="p1">
+RONCAGLIA, Andrés | SANTINI, Franco
+</p>
+<p style="font-weight:600; font-size:22px; text-align: center" class="p1">
+Primer trabajo práctico de Bioestadística
+</p>
+<p style="font-weight:600; font-size:22px; text-align: center" class="p1">
+Facultad de Ciencias Económicas y Estadística, UNR
+</p>
+</div>
+<section id="introducción" class="level1">
+<h1>Introducción</h1>
+<div class="justify">
+<p>Se llevó a cabo un estudio de investigación clínica multicéntrico con el fin de implementar estándares mundiales de crecimiento fetal que faciliten la detección temprana de alteraciones en el desarrollo del feto dentro del últero, y de esta manera reducir la morbi-mortalidad perinatal asociada con el crecimiento. Durante el período de reclutamiento, las mujeres admitidas en alguna de las clínicas de salud participantes cursando su primer trimestre de embarazo fueron invitadas a formar parte del estudio. Aquellas que cumplieron con los criterios de elegibilidad y dieron su consentimiento fueron seguidas según un esquema de visitas programado a las 14, 18, 24, 28, 32, 36 y 40 semanas de gestación. En cada visita, se tomaron medidas antropométricas del feto por medio de un ultrasonido.</p>
+<p>La información necesaria para llevar a cabo el análisis se recolectó a lo largo de 17 formularios en papel. Particularmente, en el <a href="https://github.com/Franco-Santini/Bioestadistica_tp1/blob/main/Datos/formulario.pdf">formulario de admisión (ADM)</a> se registraron algunas características de la mujeres al momento de ingresar en el estudio. A las mujeres que cumplieron todos los criterios les fue asignado un código identificador único (Subject Number) compuesto por su código de país, código del médico responsable, y el orden de ingreso. Sólo se entrevistaron mujeres mayores de edad (18 años o más al momento de la entrevista).</p>
+<p>Estos datos son digitalizados manualmente lo cúal puede llevar a numerosas inconsistencias y errores ya sean por parte de quien completa el formulario y/o de quien lo digitaliza. Es importante entonces establecer un conjunto de reglas para que la información recopilada este limpia de estas inconsistencias, alertando cada vez que un registro viole alguna de las reglas, a esto lo llamamos validación.</p>
+</div>
+<p>Las variables que se extrajeron de los formularios son las siguientes:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important;">Variable</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important;">Tipo</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important;">Descripcion</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important;">Valores</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">countrycode</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Numérico</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Código del país</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">4, 11, 14, 23, 31, 48, 54, 65, 72, 97</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">patientid</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Caracter</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Identificador del paciente</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">dd/mm/yyyy-AA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">interview</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Fecha</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Fecha de la entrevista</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">dd/mm/yyyy</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">ethnicgroup</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Numérico</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Grupo étnico</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">1 = 'Caucásico', 2 = 'Asiático', 3 = 'Africano', 4 = 'Otro'</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">scr</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Numérico</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Elegibilidad según forma CLIN-SCR</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">1 = 'NO', 2 = 'YES'</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">usscr</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Numérico</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Elegibilidad según forma US-SCR</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">1 = 'NO', 2 = 'YES'</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">consent</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Numérico</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consentimiento</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">1 = 'NO', 2 = 'YES'</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">subjectnumber</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Caracter</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Número de sujeto</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">countrycode-physiciancode-subjectcode</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p><br>
+</p>
+<div class="justify">
+<p>A partir de estas variables, se crearon las siguientes:</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important;">Variable</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important;">Tipo</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important;">Descripcion</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important;">Valores</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">bdate</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Fecha</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Fecha de nacimiento</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">dd/mm/yyyy</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">initials</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Caracter</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Iniciales del paciente</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">AA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">age</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Numérico</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Edad del paciente</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">18 a 51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">ind_id</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Numérico</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Identificador numérico del paciente</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">1 a 1000</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="reglas-propuestas" class="level1">
+<h1>Reglas propuestas</h1>
+<div class="justify">
+<p>Dada la naturaleza del problema se definieron las siguientes reglas:</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; ">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important; position: sticky; top: 0; background-color: #FFFFFF;">ID</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important; position: sticky; top: 0; background-color: #FFFFFF;">Descripción</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important; position: sticky; top: 0; background-color: #FFFFFF;">Condición</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important; position: sticky; top: 0; background-color: #FFFFFF;">Tipo</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: black !important; background-color: rgba(126, 192, 238, 255) !important; position: sticky; top: 0; background-color: #FFFFFF;">Campo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.1</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(countrycode) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(countrycode)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Country Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.2</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(countrycode) no es numérica</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!is.numeric(countrycode)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Country Code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.3</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(countrycode) no está entre las opciones</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!(countrycode %in% c(4,11,14,23,31,48,54,65,72,97))</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Rango</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Country Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.4</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(patientid) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(patientid)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Patients ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.5</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(bdate) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(bdate)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Patients ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.6</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(bdate) no es fecha</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!is.Date(bdate)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Patients ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.7</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(initials) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(initials)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Patients ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.8</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(initials) no es caracter</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!is.character(initials)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Patients ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.9</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(initials) no es de largo 2</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">str_length(initials) != 2</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Rango</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Patients ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.10</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(initials) no está en mayusculas</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">initials != str_to_upper(initials)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Rango</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Patients ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.11</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(interview) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(interview)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Interview</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.12</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(interview) no es fecha</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!is.Date(interview)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Interview</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.13</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(age) fuera de rango (18 &lt;= age &lt;= 51)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">age &lt; 18 &amp;#124; age &gt; 51</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Rango</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Patients ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.14</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(ethnicgroup) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(ethnicgroup)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Ethnic Group</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.15</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(ethnicgroup) no es numérica</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!is.numeric(ethnicgroup)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Ethnic Group</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.16</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(ethnicgroup) no está entre las opciones</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!(ethnicgroup %in% 1:4)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Rango</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Ethnic Group</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.17</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(scr) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(scr)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">SSR</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.18</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(scr) no es numérica</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!is.numeric(scr)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">SSR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.19</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(scr) no está entre las opciones</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!(scr %in% 1:2)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Rango</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">SSR</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.20</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(usscr) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(usscr)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">USSSR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.21</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(usscr) no es numérica</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!is.numeric(usscr)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">USSSR</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.22</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(usscr) no está entre las opciones</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!(usscr %in% 1:2)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Rango</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">USSSR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.23</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(consent) es faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">is.na(consent)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Existencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consent</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.24</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(consent) no es numérica</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!is.numeric(consent)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consent</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.25</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(consent) no está entre las opciones</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">!(consent %in% 1:2)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Rango</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consent</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.26</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Si (scr), (usscr) o (consent) igual a 1, (subjectnumber) debe ser faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(consent == 1 &amp;#124; scr == 1 &amp;#124; usscr == 1) &amp; !(is.na(subjectnumber))</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Subject Number</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.27</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Si (scr), (usscr) y (consent) igual a 2, (subjectnumber) no debe ser faltante</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">(consent == 2 &amp; scr == 2 &amp; usscr == 2) &amp; is.na(subjectnumber)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Subject Number</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.28</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Si (subjectnumber) no es faltante, (subjectnumber) debe ser caracter</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">ifelse(is.na(subjectnumber), FALSE, !(is.character(subjectnumber)))</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Subject Number</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.29</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Si (subjectnumber) no es faltante, el largo de (subjectnumber) debe ser igual a 9</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">ifelse(is.na(subjectnumber), FALSE, str_length(subjectnumber) != 9)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Subject Number</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">r.30</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Si (subjectnumber) no es faltante, los 3 primeros valores de (subjectnumber) deben coincidir con (countrycode)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">ifelse(is.na(subjectnumber), FALSE, as.numeric(str_sub(subjectnumber, end = 3)) != countrycode)</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Consistencia</td>
+<td style="text-align: left; color: black !important; background-color: rgba(242, 243, 244, 255) !important;">Subject Number</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+</div>
+<p><br>
+</p>
+<div class="justify">
+<p>Resultó de interés conocer las respuestas a las siguientes preguntas:</p>
+<ul>
+<li><p>¿Cúal es el número de participantes limpios (sin inconsistencias)?</p>
+<p>Hay un total de 761 pacientes sin inconsitencias.</p></li>
+<li><p>¿Cúantos participantes tienen inconsistencias?</p>
+<p>Dado que el total de pacientes son 1000, la cantidad de pacientes que tienen al menos una inconsistencia es 239.</p></li>
+<li><p>¿Cúales son las inconsistencias más frecuentes?</p></li>
+</ul>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-5c71018ef9a2f9904b74" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-5c71018ef9a2f9904b74">{"x":{"data":[{"orientation":"v","width":[0.90000000000000036,0.90000000000000036,0.90000000000000036,0.90000000000000036,0.90000000000000036,0.90000000000000013,0.89999999999999991],"base":[0,0,0,0,0,0,0],"x":[7,6,5,4,3,2,1],"y":[98,56,51,41,26,3,1],"text":["reorder(Regla, Frecuencia): r.27<br />Frecuencia: 98<br />Si (scr), (usscr) y (consent) igual a 2, (subjectnumber) no debe ser faltante","reorder(Regla, Frecuencia): r.26<br />Frecuencia: 56<br />Si (scr), (usscr) o (consent) igual a 1, (subjectnumber) debe ser faltante","reorder(Regla, Frecuencia): r.16<br />Frecuencia: 51<br />(ethnicgroup) no está entre las opciones","reorder(Regla, Frecuencia): r.30<br />Frecuencia: 41<br />Si (subjectnumber) no es faltante, los 3 primeros valores de (subjectnumber) deben coincidir con (countrycode)","reorder(Regla, Frecuencia): r.14<br />Frecuencia: 26<br />(ethnicgroup) es faltante","reorder(Regla, Frecuencia): r.13<br />Frecuencia:  3<br />(age) fuera de rango (18 <= age <= 51)","reorder(Regla, Frecuencia): r.23<br />Frecuencia:  1<br />(consent) es faltante"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(178,34,34,0.7)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":40.182648401826491,"l":43.105022831050235},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Top 7 inconsistencias más frecuentes","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,7.5999999999999996],"tickmode":"array","ticktext":["r.23","r.13","r.14","r.30","r.16","r.26","r.27"],"tickvals":[1,2,3,4.0000000000000009,5,6,7],"categoryorder":"array","categoryarray":["r.23","r.13","r.14","r.30","r.16","r.26","r.27"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Regla","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-4.9000000000000004,102.90000000000001],"tickmode":"array","ticktext":["0","25","50","75","100"],"tickvals":[0,25,50,75,100],"categoryorder":"array","categoryarray":["0","25","50","75","100"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Frecuencia","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176002,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"372041e44068":{"x":{},"y":{},"text":{},"type":"bar"}},"cur_data":"372041e44068","visdat":{"372041e44068":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li>¿Qué campos presentan más errores?</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-bc34ce182db8b03a901d" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-bc34ce182db8b03a901d">{"x":{"data":[{"orientation":"v","width":[0.89999999999999991,0.90000000000000036,0.90000000000000013,0.90000000000000036],"base":[0,0,0,0],"x":[1,3,2,4],"y":[2,77,3,195],"text":["reorder(campo, Frecuencia): Consent<br />Frecuencia:   2","reorder(campo, Frecuencia): Ethnic Group<br />Frecuencia:  77","reorder(campo, Frecuencia): Patients ID<br />Frecuencia:   3","reorder(campo, Frecuencia): Subject Number<br />Frecuencia: 195"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(30,144,255,0.7)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":40.182648401826491,"l":43.105022831050235},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Cantidad de errores por campo","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,4.5999999999999996],"tickmode":"array","ticktext":["Consent","Patients ID","Ethnic Group","Subject Number"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["Consent","Patients ID","Ethnic Group","Subject Number"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Campo","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-9.75,204.75],"tickmode":"array","ticktext":["0","50","100","150","200"],"tickvals":[0,50,100.00000000000001,150,200],"categoryorder":"array","categoryarray":["0","50","100","150","200"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Frecuencia","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176002,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"3720672f215f":{"x":{},"y":{},"type":"bar"}},"cur_data":"3720672f215f","visdat":{"3720672f215f":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="recomendaciones-finales" class="level1">
+<h1>Recomendaciones finales</h1>
+<div class="justify">
+<p>En base a los errores más comunes se debería recomendar a las personas que registran y digitalizan la información que presten más atención a los campos referidos al grupo étnico y al identificador del sujeto, en especial a las reglas 14, 30, 16, 26 y 27 que son las que se rompen con mayor frecuencia. Esto aceleraría el proceso de validación de datos logrando tener la información lista para el análisis en menor tiempo y con mayor calidad.</p>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

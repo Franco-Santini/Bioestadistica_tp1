@@ -1,16 +1,14 @@
 ---
-title: "TP_1"
-format: html
+format: 
+  html:
+    theme: litera
+    toc: true
+    toc-location: right
+echo: false
+warning: false
+message: false
+lang: es
 ---
-
-# Reglas
-
-a) Numerico, entre las opciones
-b) Primera parte fecha, mayor a 18 años hasta el dia de la entrevista y formato dma. Segunda parte letras, mayusculas
-c) formato fecha dma
-d) numerico, entre las opciones
-1) 2) y 3) numerico, 1 o 2
-sub) character y 1,2 y 3 igual a 2; country_code igual a b). NA en otro caso
 
 ```{r}
 # Librerias
@@ -21,16 +19,52 @@ library(ggplot2)
 library(lubridate)
 library(stringr)
 library(writexl)
+library(kableExtra)
+library(plotly)
 ```
 
 
+
+```{css, echo = FALSE}
+.justify {
+  text-align: justify !important
+}
+
+.p1 {
+  font-family: "Tahoma", Tahoma, sans-serif;
+}
+```
+
+
+::: center
+
+<p style="font-weight:600; font-size:36px; text-align: center" class="p1">MANEJO DE DATOS</p> 
+
+<p style="font-weight:600; font-size:26px; text-align: center" class="p1">RONCAGLIA, Andrés | SANTINI, Franco</p>
+
+<p style="font-weight:600; font-size:22px; text-align: center" class="p1">Primer trabajo práctico de Bioestadística</p>
+
+<p style="font-weight:600; font-size:22px; text-align: center" class="p1">Facultad de Ciencias Económicas y Estadística, UNR</p>
+
+:::
+
+# Introducción
+
+::: {.justify}
+
+Se llevó a cabo un estudio de investigación clínica multicéntrico con el fin de implementar estándares mundiales de crecimiento fetal que faciliten la detección temprana de alteraciones en el desarrollo del feto dentro del últero, y de esta manera reducir la morbi-mortalidad perinatal asociada con el crecimiento. Durante el período de reclutamiento, las mujeres admitidas en alguna de las clínicas de salud participantes cursando su primer trimestre de embarazo fueron invitadas a formar parte del estudio. Aquellas que cumplieron con los criterios de elegibilidad y dieron su consentimiento fueron seguidas según un esquema de visitas programado a las 14, 18, 24, 28, 32, 36 y 40 semanas de gestación. En cada visita, se tomaron medidas antropométricas del feto por medio de un ultrasonido. 
+
+La información necesaria para llevar a cabo el análisis se recolectó a lo largo de 17 formularios en papel. Particularmente, en el [formulario de admisión (ADM)](https://github.com/Franco-Santini/Bioestadistica_tp1/blob/main/Datos/formulario.pdf) se registraron algunas características de la mujeres al momento de ingresar en el estudio. A las mujeres que cumplieron todos los criterios les fue asignado un código identificador único (Subject Number) compuesto por su código de país, código del médico responsable, y el orden de ingreso. Sólo se entrevistaron mujeres mayores de edad (18 años o más al momento de la entrevista).
+
+
+Estos datos son digitalizados manualmente lo cúal puede llevar a numerosas inconsistencias y errores ya sean por parte de quien completa el formulario y/o de quien lo digitaliza. Es importante entonces establecer un conjunto de reglas para que la información recopilada este limpia de estas inconsistencias, alertando cada vez que un registro viole alguna de las reglas, a esto lo llamamos validación. 
+
+:::
 
 ```{r}
 # Carga de datos
 
 datos <- read_xlsx('Datos/adm.xlsx')
-
-glimpse(datos)
 
 # Extraemos la fecha de nacimiento y las inciales de la persona
 
@@ -48,6 +82,45 @@ datos <- datos |> mutate(interview = as.Date(interview, format = '%d/%m/%Y'),
 
 ```
 
+Las variables que se extrajeron de los formularios son las siguientes: 
+
+```{r}
+data.frame(Variable = names(datos)[1:8],
+           Tipo = c("Numérico", "Caracter", "Fecha", "Numérico", "Numérico", "Numérico", "Numérico", "Caracter"),
+           Descripcion = c("Código del país", "Identificador del paciente", "Fecha de la entrevista", "Grupo étnico", "Elegibilidad según forma CLIN-SCR", "Elegibilidad según forma US-SCR", "Consentimiento", "Número de sujeto"),
+           Valores = c("4, 11, 14, 23, 31, 48, 54, 65, 72, 97", "dd/mm/yyyy-AA", "dd/mm/yyyy", "1 = 'Caucásico', 2 = 'Asiático', 3 = 'Africano', 4 = 'Otro'", "1 = 'NO', 2 = 'YES'", "1 = 'NO', 2 = 'YES'", "1 = 'NO', 2 = 'YES'", "countrycode-physiciancode-subjectcode")
+           ) |> kable(format = 'pipe') |> 
+  kable_styling() %>%
+  row_spec(0, background = "skyblue2", color = "black", bold = T) %>%
+  row_spec(1:8, background = "#f2f3f4" ,color = "black")
+```
+
+\
+
+::: {.justify}
+A partir de estas variables, se crearon las siguientes:
+
+:::
+
+```{r}
+data.frame(Variable = names(datos)[9:length(names(datos))],
+           Tipo = c("Fecha", "Caracter", "Numérico", "Numérico"),
+           Descripcion = c("Fecha de nacimiento", "Iniciales del paciente", "Edad del paciente", "Identificador numérico del paciente"),
+           Valores = c("dd/mm/yyyy", "AA", "18 a 51", "1 a 1000")
+           ) |> kable(format = 'pipe') |> 
+  kable_styling() %>%
+  row_spec(0, background = "skyblue2", color = "black", bold = T) %>%
+  row_spec(1:4, background = "#f2f3f4" ,color = "black")
+```
+
+
+# Reglas propuestas
+
+::: {.justify}
+
+Dada la naturaleza del problema se definieron las siguientes reglas:
+
+:::
 
 ```{r}
 
@@ -158,6 +231,39 @@ campo <- c(
   'Subject Number'
 )
 
+tipo = c(
+  "Existencia",
+  "Consistencia",
+  "Rango",
+  "Existencia",
+  "Existencia",
+  "Consistencia",
+  "Existencia",
+  "Consistencia",
+  "Rango",
+  "Rango",
+  "Existencia",
+  "Consistencia",
+  "Rango",
+  "Existencia",
+  "Consistencia",
+  "Rango",
+  "Existencia",
+  "Consistencia",
+  "Rango",
+  "Existencia",
+  "Consistencia",
+  "Rango",
+  "Existencia",
+  "Consistencia",
+  "Rango",
+  "Consistencia",
+  "Consistencia",
+  "Consistencia",
+  "Consistencia",
+  "Consistencia"
+)
+
 id = paste0('r.', 1:length(condiciones))
 
 ## Dataframe reglas ------------------------
@@ -166,6 +272,7 @@ reglas <- data.frame(
   id = id,
   descripcion = desc,
   condicion = condiciones,
+  tipo = tipo,
   campo = campo
 )
 
@@ -174,7 +281,17 @@ reglas <- data.frame(
 # write_xlsx(x = reglas, path = '')
 ```
 
+```{r}
+kable(reglas, col.names = c("ID", "Descripción", "Condición", "Tipo", "Campo")) |> 
+  kable_styling() %>%
+  row_spec(0, background = "skyblue2", color = "black", bold = T) %>%
+  row_spec(1:nrow(reglas), background = "#f2f3f4" ,color = "black") |> 
+  scroll_box(height = '300px')
+```
 
+
+
+\
 
 ```{r}
 # Evaluacion de reglas ------------------
@@ -246,7 +363,7 @@ inconsistencias <- validacion_largo |>
   summarise(Frecuencia = sum(ifelse(is.na(Error), 1, Error))) |> 
   ungroup() |> 
   arrange(desc(Frecuencia)) |> 
-  head(5) |> 
+  head(7) |> 
   left_join(reglas, by = c('Regla' = 'id')) |> 
   select(Regla, descripcion, Frecuencia)
 
@@ -263,4 +380,57 @@ campos <- validacion_largo |>
 
 ```
 
+::: {.justify}
 
+Resultó de interés conocer las respuestas a las siguientes preguntas:
+
+ - ¿Cúal es el número de participantes limpios (sin inconsistencias)?
+ 
+    Hay un total de `r limpios` pacientes sin inconsitencias.
+ 
+ - ¿Cúantos participantes tienen inconsistencias?
+ 
+    Dado que el total de pacientes son 1000, la cantidad de pacientes que tienen al menos una inconsistencia es `r no_limpios`.
+ 
+ - ¿Cúales son las inconsistencias más frecuentes?
+ 
+:::
+
+```{r}
+
+a <- ggplot(inconsistencias) +
+  aes(x = reorder(Regla, Frecuencia), y = Frecuencia, text = descripcion) + 
+  geom_col(color = "black", fill = "firebrick", alpha = 0.7) + 
+  theme_bw() +
+  xlab("Regla") +
+  ggtitle("Top 7 inconsistencias más frecuentes") +
+  theme(legend.position = "none")
+
+ggplotly(a, tolltip = "text")
+
+```
+
+ 
+ - ¿Qué campos presentan más errores?
+ 
+```{r}
+b <- campos |> 
+  filter(Frecuencia > 0) |> 
+  ggplot() +
+  aes(x = reorder(campo, Frecuencia), y = Frecuencia) + 
+  geom_col(color = "black", fill = "dodgerblue", alpha = 0.7) + 
+  theme_bw() +
+  xlab("Campo") +
+  ggtitle("Cantidad de errores por campo") +
+  theme(legend.position = "none")
+
+ggplotly(b)
+```
+ 
+# Recomendaciones finales
+
+::: {.justify}
+
+En base a los errores más comunes se debería recomendar a las personas que registran y digitalizan la información que presten más atención a los campos referidos al grupo étnico y al identificador del sujeto, en especial a las reglas 14, 30, 16, 26 y 27 que son las que se rompen con mayor frecuencia. Esto aceleraría el proceso de validación de datos logrando tener la información lista para el análisis en menor tiempo y con mayor calidad. 
+
+:::
