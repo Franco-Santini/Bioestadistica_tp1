@@ -4,7 +4,8 @@ format:
     theme: litera
     toc: true
     toc-location: right
-echo: false
+    code-fold: true
+    embed-resources: true
 warning: false
 message: false
 lang: es
@@ -278,7 +279,7 @@ reglas <- data.frame(
 
 ## Guardamos las reglas como excel
 
-# write_xlsx(x = reglas, path = '')
+write_xlsx(x = reglas, path = 'conjunto_validacion.xlsx')
 ```
 
 ```{r}
